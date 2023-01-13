@@ -16,6 +16,9 @@
         "name": "Emestie",
         "email": "emestie@gmail.com"
     },
+    "repository": {
+        "url": "https://github.com/Emestie/zustand-log-and-expose"
+    },
     "license": "MIT",
     "devDependencies": {
         "typescript": "^4.9.4"
