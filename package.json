@@ -1,0 +1,30 @@
+{
+    "name": "zustand-log-and-expose",
+    "version": "0.1.0",
+    "description": "Zustand middleware for logging and exposing stores",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "zustand",
+        "log",
+        "expose"
+    ],
+    "author": {
+        "name": "Emestie",
+        "email": "emestie@gmail.com"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^4.9.4"
+    },
+    "peerDependencies": {
+        "zustand": "^4.3.1"
+    },
+    "files": [
+        "dist/",
+        "README.md"
+    ]
+}
