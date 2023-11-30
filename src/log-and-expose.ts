@@ -20,7 +20,15 @@ type PopArgument<T extends (...a: never[]) => unknown> = T extends (
     ? (...a: A) => R
     : never;
 
-export function createLogAndExposeMiddleware(...logPrefix: string[]) {
+interface IOptions {
+    logPrefix?: string[];
+    disableExpose?: boolean;
+    disableLogs?: boolean;
+}
+
+export function createLogAndExposeMiddleware(options: IOptions) {
+    const { logPrefix, disableExpose, disableLogs } = options;
+
     return (storeName: string) => {
         const logAndExposeImpl: LogAndExposeImpl = (f) => (set, get) => {
             const loggedSet: typeof set = (...a) => {
@@ -33,22 +41,27 @@ export function createLogAndExposeMiddleware(...logPrefix: string[]) {
                 if (Object.keys(change || {}).every((x) => x.startsWith("__")))
                     return;
 
-                const pfx = logPrefix.length ? logPrefix : ["[Ƶustand]"];
+                if (!disableLogs) {
+                    const pfx = logPrefix ? logPrefix : ["[Ƶustand]"];
 
-                console.log(
-                    ...pfx,
-                    `${storeName}:`,
-                    Object.keys(change || {}).join(", ") || "?unknown",
-                    "->",
-                    {
-                        old,
-                        new: new_,
-                        change,
-                    }
-                );
+                    console.log(
+                        ...pfx,
+                        `${storeName}:`,
+                        Object.keys(change || {}).join(", ") || "?unknown",
+                        "->",
+                        {
+                            old,
+                            new: new_,
+                            change,
+                        }
+                    );
+                }
 
-                if (!(window as any)._zustand) (window as any)._zustand = {};
-                (window as any)._zustand[storeName] = get();
+                if (!disableExpose) {
+                    if (!(window as any)._zustand)
+                        (window as any)._zustand = {};
+                    (window as any)._zustand[storeName] = get();
+                }
             };
 
             return f(loggedSet, get);
