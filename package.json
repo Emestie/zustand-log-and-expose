@@ -1,12 +1,13 @@
 {
     "name": "zustand-log-and-expose",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Zustand middleware for logging and exposing stores",
-    "main": "dist/index.js",
+    "main": "dist/index.cjs",
+    "module": "dist/index.js",
     "types": "dist/index.d.ts",
     "type": "module",
     "scripts": {
-        "build": "tsup ./src/index.ts --format esm --dts --external ./package.json --sourcemap --clean",
+        "build": "tsup ./src/index.ts --format esm,cjs --dts --external ./package.json --sourcemap --clean",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
