@@ -5,11 +5,16 @@ This is the middleware for [Zustand](https://github.com/pmndrs/zustand) state ma
 Usage is simple:
 
 ```
-const logAndExpose = createLogAndExposeMiddleware("ConsolePrefix");
+const logAndExpose = createLogAndExposeMiddleware({
+    logFunction(...args) {
+        console.log("Prefix", ...args);
+    },
+});
+
 ```
 
 Then use `logAndExpose` variable as middleware.
 
-Arguments that you will pass into the creator function will prepend console message.
+You can use any kind of logger function.
 
 Exposed stores are available through `window._zustand` after any change of store.

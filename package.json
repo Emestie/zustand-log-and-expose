@@ -1,14 +1,22 @@
 {
     "name": "zustand-log-and-expose",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "description": "Zustand middleware for logging and exposing stores",
-    "main": "dist/index.cjs",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
     "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        }
+    },
     "scripts": {
         "build": "tsup ./src/index.ts --format esm,cjs --dts --external ./package.json --sourcemap --clean",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepublishOnly": "node ./changelog.mjs"
     },
     "keywords": [
         "zustand",
@@ -24,14 +32,15 @@
     },
     "license": "MIT",
     "devDependencies": {
-        "tsup": "^8.0.1",
-        "typescript": "^4.9.4"
+        "tsup": "^7.2.0",
+        "typescript": "4.3.5"
     },
     "peerDependencies": {
         "zustand": "^4.0.0"
     },
     "files": [
         "dist/",
-        "README.md"
+        "README.md",
+        "CHANGELOG.md"
     ]
 }

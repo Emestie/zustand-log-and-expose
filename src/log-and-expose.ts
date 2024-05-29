@@ -21,13 +21,12 @@ type PopArgument<T extends (...a: never[]) => unknown> = T extends (
     : never;
 
 interface IOptions {
-    logPrefix?: string[];
+    logFunction: (...args: any[]) => void;
     disableExpose?: boolean;
-    disableLogs?: boolean;
 }
 
 export function createLogAndExposeMiddleware(options: IOptions) {
-    const { logPrefix, disableExpose, disableLogs } = options;
+    const { logFunction, disableExpose } = options;
 
     return (storeName: string) => {
         const logAndExposeImpl: LogAndExposeImpl = (f) => (set, get) => {
@@ -41,21 +40,16 @@ export function createLogAndExposeMiddleware(options: IOptions) {
                 if (Object.keys(change || {}).every((x) => x.startsWith("__")))
                     return;
 
-                if (!disableLogs) {
-                    const pfx = logPrefix ? logPrefix : ["[Ƶustand]"];
-
-                    console.log(
-                        ...pfx,
-                        `${storeName}:`,
-                        Object.keys(change || {}).join(", ") || "?unknown",
-                        "->",
-                        {
-                            old,
-                            new: new_,
-                            change,
-                        }
-                    );
-                }
+                logFunction(
+                    `${storeName}:`,
+                    Object.keys(change || {}).join(", ") || "?unknown",
+                    "->",
+                    {
+                        old,
+                        new: new_,
+                        change,
+                    }
+                );
 
                 if (!disableExpose) {
                     if (!(window as any)._zustand)
