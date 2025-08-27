@@ -1,3 +1,8 @@
+# 0.3.1
+
+- build tool changed from `tsup` to `zshy`
+- vulnerabilities fix
+
 # 0.3.0
 
 -   fixed cjs/esm things

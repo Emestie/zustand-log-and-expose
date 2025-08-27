@@ -1,20 +1,25 @@
 {
     "name": "zustand-log-and-expose",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Zustand middleware for logging and exposing stores",
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.cts",
     "exports": {
         ".": {
-            "types": "./dist/index.d.ts",
+            "types": "./dist/index.d.cts",
             "import": "./dist/index.js",
-            "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
+            "require": "./dist/index.cjs"
+        }
+    },
+    "zshy": {
+        "exports": {
+            ".": "./src/index.ts"
         }
     },
     "scripts": {
-        "build": "tsup ./src/index.ts --format esm,cjs --dts --external ./package.json --sourcemap --clean",
+        "build": "zshy",
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepublishOnly": "node ./changelog.mjs"
     },
@@ -30,17 +35,17 @@
     "repository": {
         "url": "https://github.com/Emestie/zustand-log-and-expose"
     },
-    "license": "MIT",
-    "devDependencies": {
-        "tsup": "^7.2.0",
-        "typescript": "4.3.5"
-    },
-    "peerDependencies": {
-        "zustand": "^4.0.0"
-    },
     "files": [
         "dist/",
         "README.md",
         "CHANGELOG.md"
-    ]
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^5.9.2",
+        "zshy": "^0.3.5"
+    },
+    "peerDependencies": {
+        "zustand": "^4.0.0"
+    }
 }
